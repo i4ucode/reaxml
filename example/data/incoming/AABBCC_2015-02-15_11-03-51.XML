@@ -1,0 +1,180 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2015-02-15-11:03:51" username="xxx" password="xxx">
+  <commercial modTime="2015-02-15-11:03:51" status="current">
+    <agentID>AABBCC</agentID>
+    <uniqueID>1955</uniqueID>
+    <exclusivity value="exclusive" />
+    <commercialListingType value="lease" />
+    <underOffer value="no" />
+    <listingAgent id="1">
+      <name>Pradeepa N</name>
+      <telephone type="mobile">0414 123 456</telephone>
+      <email>pradeepan@adept.com.au</email>
+    </listingAgent>
+    <listingAgent id="2">
+      <name />
+    </listingAgent>
+    <listingAgent id="3">
+      <name />
+    </listingAgent>
+    <price display="yes" />
+    <priceView />
+    <commercialRent period="annual" plusOutgoings="no">
+      <rentPerSquareMetre>
+        <range>
+          <min>370.00</min>
+          <max>415.00</max>
+        </range>
+      </rentPerSquareMetre>
+    </commercialRent>
+    <isMultiple value="yes" />
+    <address display="yes">
+      <site>KINGSTON WAREHOUSE</site>
+      <streetNumber>100</streetNumber>
+      <street>Leichhardt Street</street>
+      <suburb display="yes">KINGSTON</suburb>
+      <state>ACT</state>
+      <postcode>2604</postcode>
+      <country>AUS</country>
+    </address>
+    <commercialCategory id="1" name="Offices" />
+    <commercialCategory id="2" name="Retail" />
+    <commercialCategory id="3" name="Medical/Consulting" />
+    <headline>Kingston Warehouse</headline>
+    <description>Kingston Warehouse is located in the much sought after suburb of Kingston in Canberra’s Inner South. Kingston is located close to the Manuka, Griffith, Barton, the Kingston Foreshores and is only  a short drive to the CBD, Woden, Canberra Airport and Parliamentary Triangle. The Kingston Warehouse is a fully refurbished building, with the highest standard finishes. The site was originally the old BBC hardware. The units within this boutique style development are all strata titled. 
+
+Unit 1 holds a prime position on the corner of the building, approximately 225sqm made up of 130sqm on the ground floor, with 95sqm of mezzanine space. The tenancy has a partial fitout provided. Up to 6 onsite car spaces at an additional cost.
+
+Unit 3 is approximately 204sqm with up to 3 onsite car spaces at an additional cost. The ground floor (124sqm) is fitted out with a large board room with bi fold doors, 2 offices, kitchen/breakout area and two toilets. Mezzanine (80sqm) is open plan.
+
+Unit 10 is approximately 204sqm with up to 3 onsite car spaces at an additional cost.</description>
+    <highlight id="1" />
+    <highlight id="2" />
+    <highlight id="3" />
+    <buildingDetails>
+      <area unit="squareMeter" of="total">
+        <range>
+          <min>140.00</min>
+          <max>452.00</max>
+        </range>
+      </area>
+    </buildingDetails>
+    <parkingComments>$1,000 per space pa plus GST</parkingComments>
+    <images>
+      <img id="m" modTime="2015-02-15-11:03:51" file="8faa9763-f613-e211-b47b-005056a3015d.jpg" format="jpg" />
+      <img id="a" modTime="2015-02-15-11:03:51" file="f8d2826d-f613-e211-b47b-005056a3015d.jpg" format="jpg" />
+      <img id="b" />
+      <img id="c" />
+      <img id="d" />
+      <img id="e" />
+      <img id="f" />
+      <img id="g" />
+      <img id="h" />
+      <img id="i" />
+      <img id="j" />
+      <img id="k" />
+      <img id="l" />
+      <img id="n" />
+      <img id="o" />
+      <img id="p" />
+      <img id="q" />
+      <img id="r" />
+      <img id="s" />
+      <img id="t" />
+      <img id="u" />
+      <img id="v" />
+      <img id="w" />
+      <img id="x" />
+      <img id="y" />
+      <img id="z" />
+    </images>
+  </commercial>
+  <commercial modTime="2015-02-15-11:03:51" status="current">
+    <agentID>AABBCC</agentID>
+    <uniqueID>3732</uniqueID>
+    <exclusivity value="open" />
+    <commercialListingType value="lease" />
+    <underOffer value="no" />
+    <listingAgent id="1">
+      <name>Pradeepa N</name>
+      <telephone type="mobile">0414 123 456</telephone>
+      <email>pradeepan@adept.com.au</email>
+    </listingAgent>
+    <listingAgent id="2">
+      <name />
+    </listingAgent>
+    <listingAgent id="3">
+      <name />
+    </listingAgent>
+    <price display="yes" />
+    <priceView />
+    <commercialRent period="annual" plusOutgoings="no" tax="exclusive">31548.00</commercialRent>
+    <outgoings period="annual" />
+    <isMultiple value="no" />
+    <address display="yes">
+      <site />
+      <subNumber />
+      <streetNumber>15</streetNumber>
+      <street>Oatley Court</street>
+      <suburb display="yes">BELCONNEN</suburb>
+      <state>ACT</state>
+      <postcode>2617</postcode>
+      <country>AUS</country>
+    </address>
+    <commercialCategory id="1" name="Offices" />
+    <commercialCategory id="2" />
+    <commercialCategory id="3" />
+    <headline>Belconnen office space</headline>
+    <description>Located on the corner of Oatley Court and Nettlefold Street in Cretonia House. On offer are 2 first floor office suites. One consisting of 131.45m2 &amp; another of 60.2m2. These units provide excellent exposure and signage opportunities, has its own A/C, and shares common amenities and kitchenette. 
+- There is excellent public parking at the doorstep.
+- The 131.45m2 suite can be subdivided. </description>
+    <highlight id="1" />
+    <highlight id="2" />
+    <highlight id="3" />
+    <buildingDetails>
+      <area unit="squareMeter" of="total">131.45</area>
+    </buildingDetails>
+    <parkingComments>Excellent public parking</parkingComments>
+    <images>
+      <img id="m" modTime="2015-02-13-11:03:52" file="675735e3-fc93-e111-9de4-005056a3015d.jpg" format="jpg" />
+      <img id="a" modTime="2015-02-13-11:03:52" file="921773fd-8c1b-e411-9408-005056a38134.jpg" format="jpg" />
+      <img id="b" />
+      <img id="c" />
+      <img id="d" />
+      <img id="e" />
+      <img id="f" />
+      <img id="g" />
+      <img id="h" />
+      <img id="i" />
+      <img id="j" />
+      <img id="k" />
+      <img id="l" />
+      <img id="n" />
+      <img id="o" />
+      <img id="p" />
+      <img id="q" />
+      <img id="r" />
+      <img id="s" />
+      <img id="t" />
+      <img id="u" />
+      <img id="v" />
+      <img id="w" />
+      <img id="x" />
+      <img id="y" />
+      <img id="z" />
+    </images>
+  </commercial>
+  <commercial modTime="2015-02-15-11:03:52" status="sold">
+    <agentID>AABBCC</agentID>
+    <uniqueID>G30600</uniqueID>
+    <soldDetails>
+      <price display="no">12345.00</price>
+      <date>2015-02-15-00:00:00</date>
+    </soldDetails>
+  </commercial>
+  <commercial modTime="2015-02-15-11:03:52" status="withdrawn">
+    <agentID>AABBCC</agentID>
+    <uniqueID>1234</uniqueID>
+  </commercial>
+</propertyList>
