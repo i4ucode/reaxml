@@ -508,61 +508,6 @@ class XmlProcessor implements LoggerAwareInterface
 		return $properties;
 	}
 
-
-
-	/**
-	 * Import the property by calling a callback defined in the process() method
-	 * Note: override this method to provide a custom implementation
-	 */
-	//protected function processProperty(Property $property)
-	//{
-	//	if ($this->import_callback)
-	//	{
-	//		$callback = $this->import_callback;
-	//		$callback($property_type, $propertyData);
-	//	}
-	//}
-
-
-	/**
-         * Convert @attributes elements which result from the JSON serialization of the
-         * SimpleXML object.
-         */
-	//protected function collapseAttributes(&$data, $depth = 0)
-	//{
-	//	foreach ($data as $key => &$val)
-	//	{
-	//		
-	//		if (is_array($val))
-	//		{
-	//			if (isset($val['@attributes']) && is_array($val['@attributes']))
-	//			{
-	//				if (count($val['@attributes']) == 1 && isset($val['@attributes']['value']))
-	//				{
-	//					// Single element 'value'
-	//					$data[$key] = $val['@attributes']['value'];
-	//					
-	//				}
-	//				else
-	//				{
-	//					// Multiple elements
-	//					foreach ($val['@attributes'] as $attrkey => &$attrval)
-	//					{
-	//						$val[$attrkey] = $attrval;
-	//					}
-	//					unset($val['@attributes']);
-	//				}
-
-	//			}
-	//			if (is_array($val))
-	//			{
-	//				$this->collapseAttributes($val, $depth+1);
-	//			}
-
-	//		}
-	//	}
-	//}
-
 	public function getFileCount()
 	{
 		return count($this->files);
