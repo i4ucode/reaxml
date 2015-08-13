@@ -360,7 +360,7 @@ class XmlProcessor implements LoggerAwareInterface
 			if (isset($propertyNode->category)) {
 				foreach ($propertyNode->category as $categoryNode) {
 					if (isset($categoryNode['name'])) {
-						$property->addCategory(new Category(null, (string)$categoryNode['name']));
+						$property->addCategory(new ResidentialCategory(null, (string)$categoryNode['name']));
 					}
 				}
 			}
@@ -368,7 +368,7 @@ class XmlProcessor implements LoggerAwareInterface
 			if (isset($propertyNode->commercialCategory)) {
 				foreach ($propertyNode->commercialCategory as $commercialCategoryNode) {
 					if (isset($commercialCategoryNode['name'])) {
-						$property->addCategory(new Category((string)$commercialCategoryNode['id'], (string)$commercialCategoryNode['name']));
+						$property->addCategory(new CommercialCategory((string)$commercialCategoryNode['id'], (string)$commercialCategoryNode['name']));
 					}
 				}
 			}
@@ -380,7 +380,7 @@ class XmlProcessor implements LoggerAwareInterface
 						if (isset($businessCategoryNode->businessSubCategory)) {
 							$subCategory = (string)$businessCategoryNode->businessSubCategory;
 						}
-						$property->addCategory(new Category((string)$businessCategoryNode['id'], (string)$businessCategoryNode->name, $subCategory));
+						$property->addCategory(new BusinessCategory((string)$businessCategoryNode['id'], (string)$businessCategoryNode->name, $subCategory));
 					}
 				}
 			}

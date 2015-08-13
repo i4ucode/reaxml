@@ -275,7 +275,7 @@ class Property
 		return new \ArrayIterator($this->categories);
 	}
 
-	public function addCategory(Category $category)
+	public function addCategory(AbstractCategory $category)
 	{
 		$this->categories[] = $category;
 	}
