@@ -338,7 +338,12 @@ class XmlProcessor implements LoggerAwareInterface
 				$address->setStreet((string)$addressNode->street);
 				$address->setSuburb((string)$addressNode->suburb);
 				$address->setDisplaySuburb((string)$addressNode->suburb['display']);
-				$address->setState((string)$addressNode->state);
+				if (isset($addressNode->region)) {
+					$address->setRegion((string)$addressNode->region);
+				}
+				if (isset($addressNode->state)) {
+					$address->setState((string)$addressNode->state);
+				}
 				$address->setPostcode((string)$addressNode->postcode);
 				$address->setCountry((string)$addressNode->country);
 				$property->setAddress($address);

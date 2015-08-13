@@ -9,6 +9,7 @@ class Address
 	protected $streetNumber;
 	protected $street;
 	protected $suburb;
+	protected $region;
 	protected $displaySuburb;
 	protected $state;
 	protected $postcode;
@@ -86,6 +87,17 @@ class Address
 	{
 		return $this->displaySuburb === true;
 	}
+
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+
+	public function getRegion()
+	{
+		return $this->region;
+	}
+
 
 	public function setState($state)
 	{
