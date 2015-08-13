@@ -248,6 +248,9 @@ class XmlProcessor implements LoggerAwareInterface
 				if (isset($priceNode['display'])) {
 					$price->setDisplay((string)$priceNode['display']);
 				}
+				if (isset($priceNode['display'])) {
+					$price->setPlusSAV((string)$priceNode['plusSAV']);
+				}
 				if (isset($priceNode['tax'])) {
 					$price->setTax((string)$priceNode['tax']);
 				}

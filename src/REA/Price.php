@@ -4,6 +4,7 @@ namespace REA;
 class Price
 {
 	protected $value;
+	protected $plusSAV;
 	protected $tax;
 	protected $display;
 
@@ -19,6 +20,17 @@ class Price
 	{
 		$this->value = $value;
 	}
+
+	public function isPlusSAV()
+	{
+		return $this->plusSAV === true;
+	}
+
+	public function setPlusSAV($plusSAV)
+	{
+		$this->plusSAV = !(empty($plusSAV) || $plusSAV === 'no');
+	}
+
 
 	public function getTax()
 	{
