@@ -188,7 +188,7 @@ class Property
 
 	public function getAgents()
 	{
-		return new ArrayIterator($this->agents);
+		return new \ArrayIterator($this->agents);
 	}
 
 	public function getAgentById($id)
@@ -271,7 +271,7 @@ class Property
 
 	public function getCommercialCategories()
 	{
-		return new ArrayIterator($this->commercialCategories);
+		return new \ArrayIterator($this->commercialCategories);
 	}
 
 	public function addCommercialCategory(IdValue $category)
@@ -330,7 +330,7 @@ class Property
 
 	public function getHighlights()
 	{
-		return new ArrayIterator($this->highlights);
+		return new \ArrayIterator($this->highlights);
 	}
 
 	public function addHighlight(IdValue $highlight)
@@ -365,7 +365,7 @@ class Property
 
 	public function getImages()
 	{
-		return new ArrayIterator($this->images);
+		return new \ArrayIterator($this->images);
 	}
 
 	public function getImageById($id)
@@ -411,7 +411,7 @@ class Property
 
 	public function getFloorPlans()
 	{
-		return new ArrayIterator($this->floorPlans);
+		return new \ArrayIterator($this->floorPlans);
 	}
 
 	public function getFloorPlanById($id)
