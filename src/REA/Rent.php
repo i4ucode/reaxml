@@ -1,23 +1,29 @@
 <?php
 namespace REA;
 
-class Rent
+class Rent 
 {
-	protected $rent;
+	protected $value;
 	protected $period;
 	protected $plusOutgoings;
 	protected $plusSAV;
 	protected $tax;
 	protected $display;
 
-	public function getRent()
+	public function __construct($value = null, $period = null)
+	{
+			$this->setValue($value);
+			$this->setPeriod($period);
+	}
+
+	public function getValue()
 	{
 		return $this->rent;
 	}
 
-	public function setRent($rent)
+	public function setValue($value)
 	{
-		$this->rent = $rent;
+		$this->rent = $value;
 	}
 
 	public function getPeriod()
@@ -30,7 +36,7 @@ class Rent
 		$this->period = $period;
 	}
 
-	public function getPlusOutgoings()
+	public function isPlusOutgoings()
 	{
 		return $this->plusOutgoings === true;
 	}
@@ -40,7 +46,7 @@ class Rent
 		$this->plusOutgoings = !(empty($plusOutgoings) || $plusOutgoings === 'no');
 	}
 
-	public function getPlusSAV()
+	public function isPlusSAV()
 	{
 		return $this->plusSAV === true;
 	}
@@ -68,5 +74,10 @@ class Rent
 	public function isDisplay()
 	{
 		return $this->display === true;
+	}
+
+	public function isRange()
+	{
+		return $this->value instanceOf Range;
 	}
 }

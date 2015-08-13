@@ -27,14 +27,13 @@ class Property
 	protected $agentId;
 	protected $uniqueId;
 	protected $exclusivity;
-	protected $commercialAuthority;
+	protected $authority;	// Commercial or ...
 	protected $commercialListingType;
 	protected $underOffer;
 	protected $agents = array();
 	protected $price;
 	protected $priceView;
-	protected $commercialRent;
-	protected $rent;
+	protected $rent;		// Commercial or rental
 	protected $isMultiple;
 	protected $address;
 	protected $municipality;
@@ -125,24 +124,14 @@ class Property
 		$this->commercialListingType = $commercialListingType;
 	}
 
-	public function getCommercialAuthority()
+	public function getAuthority()
 	{
-		return $this->commercialAuthority;
+		return $this->authority;
 	}
 
-	public function setCommercialAuthority($commercialAuthority)
+	public function setAuthority($authority)
 	{
-		$this->commercialAuthority = $commercialAuthority;
-	}
-
-	public function setCommercialRent(Rent $commercialRent)
-	{
-		$this->commercialRent = $commercialRent;
-	}
-
-	public function getCommercialRent()
-	{
-		return $this->commercialRent;
+		$this->authority = $authority;
 	}
 
 	public function setRent(Rent $rent)

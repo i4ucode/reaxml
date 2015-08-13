@@ -1,30 +1,9 @@
 <?php
-namespace REA;
-
 /**
-
-$rea = new XmlProcessor();
-$rea->process('incoming', 'processed', 'failed', array($this, 'importProperty'));
-*/
-
-// Data objects
-//PropertyDO.class.php
-//
-//
-//$processor= new Processor();
-//$processor->addDirectory($incoming_dir, $processed_dir, $failed_dir);
-//// OR
-//$processor->addFile($incoming_file, $processed_file, $failed_file);
-//
-//
-//$properties = $processor->getProperties(); // Iterator
-//foreach ($properties as $property)
-//{
-//	$property->headline
-//	$images = $property->getImages();
-//	$property->addImage();
-//
-
+ * @author Jodie Dunlop <jodiedunlop@gmail.com>
+ * Copyright (C) 2015 i4U - Creative Internet Consultants Pty Ltd.
+ */
+namespace REA;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -255,8 +234,33 @@ class XmlProcessor implements LoggerAwareInterface
 				$property->setCommercialListingType((string)$propertyNode->commercialListingType['value']);
 				
 			}
+			if (isset($propertyNode->price)) {
+				$priceNode = $propertyNode->price;
+
+				// Rent can be a single value or range
+				$priceValue = isset($priceNode->range) ?
+					new Range((string)$priceNode->range->min, (string)$priceNode->range->max) :
+					(string)$priceNode;
+
+				$price = new Price();
+				$price->setPrice($priceValue);
+				if (isset($priceNode['display'])) {
+					$price->setDisplay((string)$priceNode['display']);
+				}
+				if (isset($priceNode['tax'])) {
+					$price->setTax((string)$priceNode['tax']);
+				}
+				
+				$property->setPrice($price);
+				unset($priceNode);
+			}
+
+			if (isset($propertyNode->priceView)) {
+				$property->setPriceView((string)$propertyNode->priceView);
+			}
+
 			if (isset($propertyNode->exclusivity)) {
-				$property->setExclusivity(isset($propertyNode->exclusivity) ? (string)$propertyNode->exclusivity['value'] : null);
+				$property->setExclusivity((string)$propertyNode->exclusivity['value']);
 			}
 
 			if (isset($propertyNode->commercialRent)) {
@@ -285,11 +289,11 @@ class XmlProcessor implements LoggerAwareInterface
 					$rent->setTax((string)$commercialRentNode['tax']);
 				}
 				
-				$property->setCommercialRent($rent);
+				$property->setRent($rent);
 				unset($commercialRentNode);
-			}
+			} elseif (isset($propertyNode->rent)) {
 
-			if (isset($propertyNode->rent)) {
+				// TODO: I don't think typical rent is under rentPerSquareMeter? Check DTD
 				$rentNode = $propertyNode->rent;
 				// Rent can be a single value or range
 				$rentValue = isset($rentNode->rentPerSquareMetre) ?
@@ -491,6 +495,12 @@ class XmlProcessor implements LoggerAwareInterface
 				$property->setBuildingDetails($buildingDetails);
 			}
 
+			if (isset($propertyNode->commercialAuthority)) {
+				$property->setAuthority((string)$propertyNode->commercialAuthority);
+			} elseif (isset($propertyNode->authority)) {
+				$property->setAuthority((string)$propertyNode->authority);
+			}
+
 			$properties[] = $property;
 		}
 
@@ -558,6 +568,15 @@ class XmlProcessor implements LoggerAwareInterface
 		return count($this->files);
 	}
 
+	public function getIncomingFiles()
+	{
+		$incoming = array();
+		foreach ($this->files as $filePaths) {
+			$incoming[] = $filePaths[0];
+		}
+
+		return $incoming;
+	}
 
 	public function log($logLevel, $message, $context = array())
 	{

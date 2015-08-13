@@ -3,23 +3,23 @@ namespace REA;
 
 class Area
 {
-	protected $area;
+	protected $value;
 	protected $unit;
 
-	public function __construct($area = null, $unit = null)
+	public function __construct($value = null, $unit = null)
 	{
-		$this->setArea($area);
+		$this->setValue($value);
 		$this->setUnit($unit);
 	}
 
-	public function getArea()
+	public function getValue()
 	{
-		return $this->area;
+		return $this->value;
 	}
 
-	public function setArea($area)
+	public function setValue($value)
 	{
-		$this->area = $area;
+		$this->value = $value;
 	}
 
 	public function getUnit()
@@ -32,9 +32,14 @@ class Area
 		$this->unit = $unit;
 	}
 
+	public function isRange()
+	{
+		return $this->value instanceOf Range;
+	}
+
 	public function __toString()
 	{
-		return sprintf('%s %s', $this->area, $this->unit);
+		return sprintf('%s %s', $this->value, $this->unit);
 	}
 
 }
