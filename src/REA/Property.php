@@ -21,13 +21,25 @@ class Property
 	const LISTING_LEASE = 'lease';
 	const LISTING_BOTH = 'both';
 
+	const AUTHORITY_AUCTION	 = 'auction';	// Sale by auction
+	const AUTHORITY_CONJUNCTIONAL = 'conjunctional';	// The property is “For Sale” and listed with multiple agents working together – sales commission is shared amongst agents
+	const AUTHORITY_EOI	= 'eoi';			// Sale by Expression of Interest.
+	const AUTHORITY_EXCLUSIVE = 'exclusive';	// The property is “For Sale” via a single Agency
+	const AUTHORITY_FOR_SALE	= 'forsale'; 	// For Sale
+	const AUTHORITY_MULTILIST = 'multilist';	// The property is “For Sale” and listed with multiple agencies
+	const AUTHORITY_OFFERS = 'offers';		// Offers to Purchase.
+	const AUTHORITY_OPEN = 'open';		// More than one real estate agent may be employed to sell the property. The owner pays a commission only to the agent who finds the buyer
+	const AUTHORITY_SET_SALE = 'setsale';			// The property is offered for sale up to the set sale date.
+	const AUTHORITY_SALE = 'sale';			// Sale by Negotiation.
+	const AUTHORITY_TENDER = 'tender';		// Sale by public tender by a particular date.
+
 	protected $propertyType;
 	protected $modTime;
 	protected $status;
 	protected $agentId;
 	protected $uniqueId;
 	protected $exclusivity;
-	protected $authority;	// Commercial or ...
+	protected $authority;	// Also used for commercialAuthority
 	protected $commercialListingType;
 	protected $underOffer;
 	protected $agents = array();
@@ -40,7 +52,8 @@ class Property
 	protected $commercialCategories = array();
 	protected $headline;
 	protected $description;
-	protected $highlights = array();
+
+	protected $highlights = array();		// Commercial only
 	protected $carSpaces;
 	protected $parkingComments;
 	protected $landDetails;

@@ -498,7 +498,7 @@ class XmlProcessor implements LoggerAwareInterface
 			if (isset($propertyNode->commercialAuthority)) {
 				$property->setAuthority((string)$propertyNode->commercialAuthority);
 			} elseif (isset($propertyNode->authority)) {
-				$property->setAuthority((string)$propertyNode->authority);
+				$property->setAuthority((string)$propertyNode->authority['value']);
 			}
 
 			$properties[] = $property;
