@@ -32,17 +32,18 @@ class XmlProcessor implements LoggerAwareInterface
 
 	public function addDirectory($incomingDir, $processedDir = null, $failedDir = null)
 	{
+		if (!file_exists($incomingDir)) {
+			throw new \Exception('Unable to add directory, does not exist: '.$incomingDir);
+		}
 		if (!empty($processedDir) && !file_exists($processedDir)) {
 			throw new \Exception('Processed directory does not exist: '.$processedDir);
 		}
 		if (!empty($failedDir) && !file_exists($failedDir)) {
 			throw new \Exception('Failed directory does not exist: '.$failedDir);
 		}
-
 		if (($fh = opendir($incomingDir)) === false) {
-			throw new \Exception('Unable to process directory: '.$incoming_dir);
+			throw new \Exception('Unable to add directory, cannot open directory: '.$incomingDir);
 		}
-
 
 		$files = array();
 		while (($file = readdir($fh)) !== false) {
@@ -243,7 +244,7 @@ class XmlProcessor implements LoggerAwareInterface
 					(string)$priceNode;
 
 				$price = new Price();
-				$price->setPrice($priceValue);
+				$price->setValue($priceValue);
 				if (isset($priceNode['display'])) {
 					$price->setDisplay((string)$priceNode['display']);
 				}
@@ -275,7 +276,7 @@ class XmlProcessor implements LoggerAwareInterface
 					(string)$commercialRentNode;
 
 				$rent = new Rent();
-				$rent->setRent($rentValue);
+				$rent->setValue($rentValue);
 				if (isset($commercialRentNode['period'])) {
 					$rent->setPeriod((string)$commercialRentNode['period']);
 				}
@@ -304,7 +305,7 @@ class XmlProcessor implements LoggerAwareInterface
 					(string)$rentNode;
 
 				$rent = new Rent();
-				$rent->setRent($rentValue);
+				$rent->setValue($rentValue);
 				if (isset($rentNode['period'])) {
 					$rent->setPeriod((string)$rentNode['period']);
 				}
