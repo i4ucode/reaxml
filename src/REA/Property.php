@@ -49,7 +49,7 @@ class Property
 	protected $isMultiple;
 	protected $address;
 	protected $municipality;
-	protected $commercialCategories = array();
+	protected $categories = array();
 	protected $headline;
 	protected $description;
 
@@ -57,6 +57,7 @@ class Property
 	protected $carSpaces;
 	protected $parkingComments;
 	protected $landDetails;
+	protected $landCategory;
 	protected $buildingDetails;
 	protected $vendorDetails;
 	protected $zone;
@@ -269,32 +270,32 @@ class Property
 		$this->municipality = $municipality;
 	}
 
-	public function getCommercialCategories()
+	public function getCategories()
 	{
-		return new \ArrayIterator($this->commercialCategories);
+		return new \ArrayIterator($this->categories);
 	}
 
-	public function addCommercialCategory(IdValue $category)
+	public function addCategory(Category $category)
 	{
-		$this->commercialCategories[] = $category;
+		$this->categories[] = $category;
 	}
 
-	public function emptyCommercialCategorys()
+	public function emptyCategorys()
 	{
-		$this->commercialCategories = array();
+		$this->categories = array();
 	}
 
-	public function setCommercialCategorys($categories)
+	public function setCategorys($categories)
 	{
-		$this->emptyCommercialCategorys();
+		$this->emptyCategorys();
 		foreach ($categories as $category) {
-			$this->addCommercialCategory($category);
+			$this->addCategory($category);
 		}
 	}
 
-	public function getCommercialCategoryById($id)
+	public function getCategoryById($id)
 	{
-		foreach ($this->commercialCategories as $idValue) {
+		foreach ($this->categories as $idValue) {
 			if ($idValue->getId() == $id) {
 				return $idValue;
 			}
@@ -303,9 +304,9 @@ class Property
 		return null;
 	}
 
-	public function getCommercialCategoryCount()
+	public function getCategoryCount()
 	{
-		return count($this->commercialCategories);
+		return count($this->categories);
 	}
 
 	public function getHeadline()
@@ -462,6 +463,17 @@ class Property
 	public function setLandDetails(LandDetails $landDetails)
 	{
 		$this->landDetails = $landDetails;
+	}
+
+	public function getLandCategory()
+	{
+		return $this->landCategory;
+	}
+		
+
+	public function setLandCategory($landCategory)
+	{
+		$this->landCategory = $landCategory;
 	}
 
 	public function getBuildingDetails()

@@ -357,10 +357,30 @@ class XmlProcessor implements LoggerAwareInterface
 				$property->setMunicipality((string)$propertyNode->municipality);
 			}
 
+			if (isset($propertyNode->category)) {
+				foreach ($propertyNode->category as $categoryNode) {
+					if (isset($categoryNode['name'])) {
+						$property->addCategory(new Category(null, (string)$categoryNode['name']));
+					}
+				}
+			}
+
 			if (isset($propertyNode->commercialCategory)) {
 				foreach ($propertyNode->commercialCategory as $commercialCategoryNode) {
 					if (isset($commercialCategoryNode['name'])) {
-						$property->addCommercialCategory(new IdValue((string)$commercialCategoryNode['id'], (string)$commercialCategoryNode['name']));
+						$property->addCategory(new Category((string)$commercialCategoryNode['id'], (string)$commercialCategoryNode['name']));
+					}
+				}
+			}
+
+			if (isset($propertyNode->businessCategory)) {
+				foreach ($propertyNode->businessCategory as $businessCategoryNode) {
+					if (isset($businessCategoryNode->name)) {
+						$subCategory = null;
+						if (isset($businessCategoryNode->businessSubCategory)) {
+							$subCategory = (string)$businessCategoryNode->businessSubCategory;
+						}
+						$property->addCategory(new Category((string)$businessCategoryNode['id'], (string)$businessCategoryNode->name, $subCategory));
 					}
 				}
 			}
@@ -489,6 +509,9 @@ class XmlProcessor implements LoggerAwareInterface
 				$property->setLandDetails($landDetails);
 			}
 
+			if (isset($propertyNode->landCategory) && isset($propertyNode->landCategory['name'])) {
+				$property->setLandCategory((string)$propertyNode->landCategory['name']);
+			}
 
 			if (isset($propertyNode->buildingDetails)) {
 				$buildingDetailsNode = $propertyNode->buildingDetails;
