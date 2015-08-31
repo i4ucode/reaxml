@@ -8,6 +8,8 @@ class File
 	protected $url;
 	protected $format;
 	protected $modTime;
+
+    /** @var  \SplFileInfo */
 	protected $splFileInfo;
 
 	public function setId($id)
@@ -61,6 +63,11 @@ class File
 	{
 		return $this->format;
 	}
+
+    public function getSplFileInfo()
+    {
+        return $this->splFileInfo;
+    }
 
 	public function getFilename()
 	{

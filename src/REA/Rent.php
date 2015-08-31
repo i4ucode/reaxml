@@ -3,11 +3,22 @@ namespace REA;
 
 class Rent 
 {
+    /** @var  Range|float */
 	protected $value;
+
+    /** @var  string */
 	protected $period;
+
+    /** @var  bool */
 	protected $plusOutgoings;
+
+    /** @var  bool */
 	protected $plusSAV;
+
+    /** @var  float */
 	protected $tax;
+
+    /** @var  bool */
 	protected $display;
 
 	public function __construct($value = null, $period = null)
@@ -18,12 +29,12 @@ class Rent
 
 	public function getValue()
 	{
-		return $this->rent;
+		return $this->value;
 	}
 
 	public function setValue($value)
 	{
-		$this->rent = $value;
+		$this->value = $value;
 	}
 
 	public function getPeriod()

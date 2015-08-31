@@ -33,39 +33,106 @@ class Property
 	const AUTHORITY_SALE = 'sale';			// Sale by Negotiation.
 	const AUTHORITY_TENDER = 'tender';		// Sale by public tender by a particular date.
 
+    /** @var  string */
 	protected $propertyType;
+
+    /** @var  string */
 	protected $modTime;
+
+    /** @var  string */
 	protected $status;
+
+    /** @var  string */
 	protected $agentId;
+
+    /** @var  string */
 	protected $uniqueId;
+
+    /** @var  string */
 	protected $exclusivity;
+
+    /** @var  string */
 	protected $authority;	// Also used for commercialAuthority
+
+    /** @var  string */
 	protected $commercialListingType;
+
+    /** @var  string */
 	protected $underOffer;
+
+    /** @var Person[]  */
 	protected $agents = array();
+
+    /** @var  float */
 	protected $price;
+
+    /** @var  string */
 	protected $priceView;
+
+    /** @var  Rent */
 	protected $rent;		// Commercial or rental
+
+    /** @var  bool */
 	protected $isMultiple;
+
+    /** @var  Address */
 	protected $address;
+
+    /** @var  string */
 	protected $municipality;
+
+    /** @var AbstractCategory[] */
 	protected $categories = array();
+
+    /** @var  string */
 	protected $headline;
+
+    /** @var  string */
 	protected $description;
 
+    /** @var  string */
+    protected $outgoingsPeriod;
+
+    /** @var IdValue[] */
 	protected $highlights = array();		// Commercial only
+
+    /** @var  string */
 	protected $carSpaces;
+
+    /** @var  string */
 	protected $parkingComments;
+
+    /** @var  LandDetails */
 	protected $landDetails;
+
+    /** @var  BuildingDetails */
+    protected $buildingDetails;
+
+    /** @var  string */
 	protected $landCategory;
-	protected $buildingDetails;
+
+    /** @var  Person */
 	protected $vendorDetails;
+
+    /** @var  string */
 	protected $zone;
+
+    /** @var  string */
 	protected $externalLink;
+
+    /** @var  string */
 	protected $auctionDate;
+
+    /** @var  string */
 	protected $currentLeaseEndDate;
+
+    /** @var  string */
 	protected $furtherOptions;
+
+    /** @var File[] */
 	protected $images = array();
+
+    /** @var File[] */
 	protected $floorPlans = array();
 
 	public function getPropertyType()
@@ -440,6 +507,12 @@ class Property
 	{
 		$this->floorPlans = array();
 	}
+
+    public function getAssets()
+    {
+        $assets = array_merge($this->images, $this->floorPlans);
+        return new \ArrayIterator($assets);
+    }
 
 	public function setFloorPlans($floorPlans)
 	{

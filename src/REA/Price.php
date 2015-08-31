@@ -13,9 +13,10 @@ class Price
 		return $this->value;
 	}
 
-	/**
-	 * Could be value (decimal) or value range (Range) 
-	 */
+    /**
+     * Could be value (decimal) or value range (Range)
+     * @param Range|float $value
+     */
 	public function setValue($value)
 	{
 		$this->value = $value;

@@ -1,5 +1,32 @@
 <?php
 /**
+ * Provides an interface for processing multiple XML files in REA (realestate.com.au) format.
+ * Parsed properties are returned as \REA\Property objects.
+ *
+ * See: http://reaxml.realestate.com.au/docs/
+ *
+ * Basic Usage:
+ *  $rea = new \REA\XmlProcessor();
+ *
+ * Add a directory to process:
+ *  $rea->addDirectory('data/incoming');
+ *
+ * Add a directory, and move files after processing:
+ *  $rea->addDirectory('data/incoming', 'data/processed', 'data/failed');
+ *
+ * Add an individual file to process:
+ *  $rea->addFile('somefile.xml');
+ *
+ * Get a list of added files
+ *  $files = $rea->getIncomingFiles();
+ *  print_r($files);
+ *
+ * Process properties in all added files:
+ *  $properties = $rea->process();
+ *  foreach ($properties as $property) {
+ *         ...
+ *  }
+ *
  * @author Jodie Dunlop <jodiedunlop@gmail.com>
  * Copyright (C) 2015 i4U - Creative Internet Consultants Pty Ltd.
  */
@@ -13,6 +40,8 @@ class XmlProcessor implements LoggerAwareInterface
 {
 	protected $files;
 	protected $numProcessFailed;
+
+    /** @var  LoggerInterface */
 	protected $logger;
 
 	public function __construct()
@@ -113,8 +142,8 @@ class XmlProcessor implements LoggerAwareInterface
 					$this->moveFile($incomingFile, $processedFile);
 				}
 			} catch (\Exception $e) {
-				$this->log(LogLevel::ERROR, 'Error parsing file '.$path.': '.$e->getMessage());
-				$this->numProcessFail++;
+				$this->log(LogLevel::ERROR, 'Error parsing file '.$incomingFile.': '.$e->getMessage());
+				$this->numProcessFailed++;
 
 				if (!empty($failedFile)) {
 					$this->moveFile($incomingFile, $failedFile);
@@ -140,26 +169,39 @@ class XmlProcessor implements LoggerAwareInterface
 		}
 	}
 
-	/**
+    /**
      * File wrapper for parseXmlString()
      * Returns an array of Property objects
-	 */
-	public function parseXmlFile($path)
+     * @param string $path
+     * @param string|null|bool $assetDirectory Optionally pass to source assets (images/floor plans)
+     * @return array An array of REA\Property objects
+     * @throws \Exception
+     */
+	public function parseXmlFile($path, $assetDirectory = null)
 	{
 		if (!file_exists($path)) {
 			throw new \Exception('Unable to open file for parsing: '.$path);
 		}
-		
+
+        if ($assetDirectory === null) {
+            // If assetDirectory is null, assume that assets are in the same path as the file
+            // Pass false to avoid this behavior
+            $assetDirectory = dirname($path);
+        }
 		
 		$str = file_get_contents($path);
-		return $this->parseXmlString($str);
+		return $this->parseXmlString($str, $assetDirectory);
 	}
 
 
-	/**
+    /**
      * Returns an array of Property objects
-	 */
-	public function parseXmlString($str)
+     * @param string $str An XML string
+     * @param string $assetDirectory Optionally pass to source assets (images/floor plans)
+     * @return array An array of REA\Property objects
+     * @throws \Exception
+     */
+	public function parseXmlString($str, $assetDirectory = null)
 	{
 		$properties = array();
 
@@ -173,7 +215,8 @@ class XmlProcessor implements LoggerAwareInterface
 			throw new \Exception('Failed to parse invalid XML');
 		}
 
-		foreach ($xml->children() as $propertyNode)
+        /** @var \SimpleXmlElement $propertyNode */
+        foreach ($xml->children() as $propertyNode)
 		{
 			$propertyType = $propertyNode->getName();
 
@@ -189,7 +232,7 @@ class XmlProcessor implements LoggerAwareInterface
 			}
 
 			foreach ($propertyNode->listingAgent as $listingAgentNode) {
-				if (isset($listingAgentNode->name) && !empty((string)$listingAgentNode->name)) {
+				if (isset($listingAgentNode->name) && !empty($listingAgentNode->name)) {
 					$person = new Person();
 					$person->setId((string)$listingAgentNode['id']);
 					$person->setName((string)$listingAgentNode->name);
@@ -406,7 +449,7 @@ class XmlProcessor implements LoggerAwareInterface
 				$person->setName((string)$vendorDetailsNode->name);
 
 				if (isset($vendorDetailsNode->telephone)) {
-					// According to DTD agent can have multiple telphone records?
+					// According to DTD agent can have multiple telephone records?
 					foreach ($vendorDetailsNode->telephone as $telephoneNode) {
 						switch ((string)$telephoneNode['type']) {
 							case 'BH':
@@ -424,8 +467,8 @@ class XmlProcessor implements LoggerAwareInterface
 						}
 					}
 				}
-				if (isset($vendorDetails->email)) {
-					$person->setEmail((string)$vendorDetails->email);
+				if (isset($vendorDetailsNode->email)) {
+					$person->setEmail((string)$vendorDetailsNode->email);
 				}
 				$property->setVendorDetails($person);
 				unset($vendorDetailsNode);
@@ -457,8 +500,11 @@ class XmlProcessor implements LoggerAwareInterface
 						$file = new File();
 						$file->setId((string)$imgNode['id']);
 						if (isset($imgNode['file'])) {
-							$file->setFile((string)$imgNode['file']);
-						} else {
+                            $imagePath = !empty($assetDirectory) ?
+                                sprintf('%s/%s', $assetDirectory, $imgNode['file']) :
+                                (string)$imgNode['file'];
+							$file->setFile($imagePath);
+                        } elseif (isset($imgNode['url'])) {
 							$file->setUrl((string)$imgNode['url']);
 						}
 						$file->setFormat((string)$imgNode['format']);
@@ -469,25 +515,28 @@ class XmlProcessor implements LoggerAwareInterface
 			}
 
 			if (isset($propertyNode->objects)) {
-				foreach ($propertyNode->objects->floorplan as $floorplanNode) {
-					if (isset($floorplanNode['file']) || isset($floorplanNode['url'])) {
+				foreach ($propertyNode->objects->floorPlan as $floorPlanNode) {
+					if (isset($floorPlanNode['file']) || isset($floorPlanNode['url'])) {
 						$file = new File();
-						$file->setId((string)$floorplanNode['id']);
-						if (isset($floorplanNode['file'])) {
-							$file->setFile((string)$floorplanNode['file']);
-						} else {
-							$file->setUrl((string)$floorplanNode['url']);
+						$file->setId((string)$floorPlanNode['id']);
+						if (isset($floorPlanNode['file'])) {
+                            $floorPlanPath = !empty($assetDirectory) ?
+                                sprintf('%s/%s', $assetDirectory, $floorPlanNode['file']) :
+                                (string)$floorPlanNode['file'];
+							$file->setFile($floorPlanPath);
+						} elseif (isset($floorPlanNode['url'])) {
+							$file->setUrl((string)$floorPlanNode['url']);
 						}
-						$file->setFormat((string)$floorplanNode['format']);
-						$file->setModTime((string)$floorplanNode['modTime']);
-						$property->addFloorplan($file);
+						$file->setFormat((string)$floorPlanNode['format']);
+						$file->setModTime((string)$floorPlanNode['modTime']);
+						$property->addFloorPlan($file);
 					}
 				}
 			}
 
 			if (isset($propertyNode->highlight)) {
 				foreach ($propertyNode->highlight as $highlightNode) {
-					if (!empty((string)$highlightNode)) {
+					if (!empty($highlightNode)) {
 						$property->addHighlight(new IdValue((string)$highlightNode['id'], (string)$highlightNode));
 					}
 				}
