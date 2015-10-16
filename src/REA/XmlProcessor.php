@@ -372,6 +372,9 @@ class XmlProcessor implements LoggerAwareInterface
 				if (isset($addressNode->site)) {
 					$address->setSite((string)$addressNode->site);
 				}
+				if (isset($addressNode->subNumber)) {
+					$address->setSubNumber((string)$addressNode->subNumber);
+				}
 				if (isset($addressNode->unitNumber)) {
 					$address->setUnitNumber((string)$addressNode->unitNumber);
 				}

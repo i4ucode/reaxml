@@ -4,6 +4,7 @@ namespace REA;
 class Address
 {
 	protected $site;
+	protected $subNumber;
 	protected $unitNumber;
 	protected $lotNumber;
 	protected $streetNumber;
@@ -24,6 +25,16 @@ class Address
 	public function setSite($site)
 	{
 		$this->site = $site;
+	}
+
+	public function setSubNumber($subNumber)
+	{
+		$this->subNumber = $subNumber;
+	}
+
+	public function getSubNumber()
+	{
+		return $this->subNumber;
 	}
 
 	public function setUnitNumber($unitNumber)
