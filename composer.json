@@ -1,6 +1,6 @@
 {
     "name": "i4ucode/reaxml",
-    "description": "PHP implementation for processing processing REAXML (realestate.com.au) XML format",
+    "description": "PHP implementation for processing pREAXML (realestate.com.au) XML format",
     "license": "MIT License",
     "authors": [
         {
